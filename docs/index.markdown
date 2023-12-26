@@ -3,10 +3,10 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: page
+title: Introduction
 ---
 
 
-# Introduction 
 
 Greetings! to all who visits my github page.
 My github can be found [here](https://github.com/memy85). 
