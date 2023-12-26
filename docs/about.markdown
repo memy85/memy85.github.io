@@ -5,9 +5,8 @@ permalink: /about/
 ---
 
 
-<img src="https://github.com/memy85/memy85.github.io/blob/main/docs/pictures/visa.jpg"
+<img src="pictures/visa.jpg"
  style="left;width:300px;height:310px">
-
 
 ## Education
 - 2013 - 2017 **Yonsei University** *Bachelor of Science in Nursing - Wonju College of Medicine*
