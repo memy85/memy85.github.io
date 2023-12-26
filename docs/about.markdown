@@ -8,14 +8,6 @@ permalink: /about/
 <img src="./pictures/visa.jpg"
  style="left;width:300px;height:310px">
 
-# Introduction 
-
-Greetings! to all who visits my github page.
-My github can be found [here](https://github.com/memy85). 
-My name is Jang, Won Seok. You may call me Won. 
-I am a Computer Science PhD student at Umass Lowell, studying under the guidance of Professor Hong Yu at [BioNLP lab](https://bio-nlp.org/).
-Before I studied at UMass Lowell, I studied Nursing at Yonsei University, South Korea.
-I got interested in AI and Data Science, so I studied Biomedical Systems Informatics at Yonsei University.
 
 ## Education
 - 2013 - 2017 **Yonsei University** *Bachelor of Science in Nursing - Wonju College of Medicine*
