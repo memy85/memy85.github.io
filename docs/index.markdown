@@ -14,5 +14,5 @@ Before I studied at UMass Lowell, I studied Nursing at Yonsei University, South 
 I got interested in AI and Data Science, so I studied Biomedical Systems Informatics at Yonsei University.
 
 
-<img src="https://github.com/memy85/memy85.github.io/blob/main/pictures/visa.jpg"
+<img src="pictures/visa.jpg"
  style="left;width:300px;height:310px">
