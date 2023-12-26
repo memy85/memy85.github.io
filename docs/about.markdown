@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 
-<img src="./pictures/visa.jpg"
+<img src="https://github.com/memy85/memy85.github.io/docs/pictures/visa.jpg"
  style="left;width:300px;height:310px">
 
 
