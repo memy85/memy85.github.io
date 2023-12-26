@@ -36,11 +36,6 @@ minima:
 plugins:
   - jekyll-feed
 
----
----
-body {
-  font-family: '{{ site.fonts.primary }}',{{ site.fonts.secondary }},Arial,sans-serif;
-}
 
 # Exclude from processing.
 # The following items will not be processed, by default.
