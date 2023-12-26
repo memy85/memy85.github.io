@@ -5,7 +5,7 @@ permalink: /about/
 ---
 
 
-<img src="pictures/visa.jpg"
+<img src="../pictures/visa.jpg"
  style="left;width:300px;height:310px">
 
 ## Education
