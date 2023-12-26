@@ -8,7 +8,6 @@ permalink: /about/
 <img src="../pictures/visa.jpg"
  style="left;width:300px;height:310px">
 
-## Curriculum Vitae
 [cv link](https://drive.google.com/file/d/1WKcoB0k85bIXjtZOq0cj0YAZWTrnKsuv/view?usp=drive_link)
 
 ## Education
