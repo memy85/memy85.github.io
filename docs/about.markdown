@@ -11,11 +11,11 @@ permalink: /about/
 [cv link](https://drive.google.com/file/d/1WKcoB0k85bIXjtZOq0cj0YAZWTrnKsuv/view?usp=drive_link)
 
 ## Education
-- 2013 - 2017 **Yonsei University** *Bachelor of Science in Nursing - Wonju College of Medicine*
+- 2013 - 2017 Bachelor of Science in Nursing - Wonju College of Medicine, Yonsei University
 
-- 2021 - 2023 **Yonsei University** *Master of Science - Department of Biomedical Systems Informatics, College of Medicine*
+- 2021 - 2023 Master of Science - Department of Biomedical Systems Informatics, College of Medicine, Yonsei University 
 
-- 2023 - **University of Massachusetts Lowell** *Computer Science PhD student at Miner School of Information and Computer Science*
+- 2023 - current Computer Science PhD student at Miner School of Computer & Information Sciences, University of Massachusetts Lowell
 
 ## Research Interests 
 
