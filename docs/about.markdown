@@ -33,7 +33,7 @@ My current research interests are Natural Language Processing and Electronic Hea
 neutrophil-lymphocyte ratio, C-reactive protein, and lactate dehydrogenase in non-small cell lung cancer
 patients undergoing immunotherapy**: Translational Lung Cancer Research
 - Kim & Jang et al (2023). **Synthetic Data improves Survival Prediction Models in Early-Onset Colorectal Cancer**: Journal of Clinical Oncology
-- Yang and Yao et al (2023). **Performance of Multimodal GPT-4V on USMLE with Image: Potential for Imaging Diagnostic Support with Explanations** : medRxiv 
+- Yang & Yao et al (2023). **Performance of Multimodal GPT-4V on USMLE with Image: Potential for Imaging Diagnostic Support with Explanations** : medRxiv 
 
 ## Conference
 - Kim et al (2023). **Personalized Progressive Federated Learning with Leveraging Client-Specific Vertical
