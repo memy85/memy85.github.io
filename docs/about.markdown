@@ -6,7 +6,7 @@ permalink: /about/
 
 
 <img src="../pictures/new.jpeg"
- style="left;width:600px;">
+ style="left;width:500px;">
 
 [cv link](https://drive.google.com/file/d/1WKcoB0k85bIXjtZOq0cj0YAZWTrnKsuv/view?usp=drive_link)
 
