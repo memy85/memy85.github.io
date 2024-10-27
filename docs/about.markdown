@@ -14,9 +14,8 @@ Having background in nursing, (<nervous>I did have some experience in the field 
 But my interests are not confined to healthcare.
 As for my studies, I am currently focusing on bridging the gaps between the technological advances in computer science and healthcare. 
 My research are mostly on NLP, these days its mostly about LLMs and developing applications that would help physicians and patients out there. 
-If you find my works interesting and want to collaborate, email me, please reach out!
+If you find my works interesting and want to collaborate, [email](WonSeok_Jang@uml.edu) me, please reach out!
 
-[cv link](https://drive.google.com/file/d/1WKcoB0k85bIXjtZOq0cj0YAZWTrnKsuv/view?usp=drive_link)
 
 ## Where I studied, and still at
 - (2023 September - current) Computer Science PhD student at Miner School of Computer & Information Sciences, University of Massachusetts Lowell
