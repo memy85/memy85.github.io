@@ -18,7 +18,7 @@
 # You can create any custom variable you would like, and they will be accessible
 # in the templates via {{ site.myvariable }}.
 
-title: Won Seok Jang (장원석) Page
+title: My Page
 email: wonseok_jang@uml.edu
 description: >- # this means to ignore newlines until "baseurl:"
   Won Seok Jang's personal github webpage. 

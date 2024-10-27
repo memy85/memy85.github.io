@@ -3,7 +3,8 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: page
-title: Welcome to my website
+title: Welcome
+permalink: /introduction
 ---
 
 Greetings! to all who visits my github page.
@@ -15,5 +16,5 @@ I got interested in AI and Data Science, so I studied Biomedical Systems Informa
 My overall goal is bridging the gaps between technology and healthcare.
 
 
-<img src="pictures/i_dont_know_when.jpg">
+<img src="../pictures/i_dont_know_when.jpg">
  <!-- style="left;width:300px;height:310px"> -->
