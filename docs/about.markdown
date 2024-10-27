@@ -8,26 +8,25 @@ permalink: /about/
 <img src="../pictures/new.jpeg"
  style="left;width:500px;">
 
+## What interests me
+I enjoy doing research. Overall, I have a lot of questions and a lot of ideas popping in my head. 
+Having background in nursing, (<nervous>I did have some experience in the field as a nurse too</nervous>) I do have more interest in making contribution in healthcare. 
+But my interests are not confined to healthcare.
+As for my studies, I am currently focusing on bridging the gaps between the technological advances in computer science and healthcare. 
+My research are mostly on NLP, these days its mostly about LLMs and developing applications that would help physicians and patients out there. 
+If you find my works interesting and want to collaborate, email me, please reach out!
+
 [cv link](https://drive.google.com/file/d/1WKcoB0k85bIXjtZOq0cj0YAZWTrnKsuv/view?usp=drive_link)
 
-## Education
-- 2013 - 2017 Bachelor of Science in Nursing - Wonju College of Medicine, Yonsei University
+## Where I studied, and still at
+- (2023 September - current) Computer Science PhD student at Miner School of Computer & Information Sciences, University of Massachusetts Lowell
+- (2021 March - 2023 August) Master of Science - Department of Biomedical Systems Informatics, College of Medicine, Yonsei University 
+- (2013 March - 2017 Feburary) Bachelor of Science in Nursing - Wonju College of Medicine, Yonsei University
 
-- 2021 - 2023 Master of Science - Department of Biomedical Systems Informatics, College of Medicine, Yonsei University 
-
-- 2023 - current Computer Science PhD student at Miner School of Computer & Information Sciences, University of Massachusetts Lowell
-
-## Research Interests 
-
-As for my studies, I am currently focusing on bridging the gaps between the technological advances in computer science and healthcare. 
-I plan to work on this area for my career.
-My current research interests are Natural Language Processing and Electronic Health Systems.
 
 ## Projects
 - Smart Pharmacovigilance Platform - Nationwide project developing pharmacovigilance platform for hospitals (December '21)
-
 - Clinical Data Synthesis with Cancer Dataset from General Hospitals in Korea (December '22)
-
 - ChatBot NoteAid - Developing technologies that would aid patients to understand more about their electronic healthcare records to enhance health literacy (October '24)
 
 ## Publications
