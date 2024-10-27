@@ -4,7 +4,7 @@
 
 layout: page
 title: Welcome
-permalink: /
+permalink: /introduction
 ---
 
 Greetings! to all who visits my github page.
