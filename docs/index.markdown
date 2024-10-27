@@ -3,7 +3,7 @@
 # To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 layout: page
-title: Introduction
+title: Welcome to my website
 ---
 
 Greetings! to all who visits my github page.
