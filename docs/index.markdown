@@ -4,8 +4,8 @@
 
 layout: page
 title: Welcome
-permalink: /
 ---
+
 
 Greetings! to all who visits my github page.
 My github can be found [here](https://github.com/memy85). 
@@ -15,6 +15,10 @@ Before I studied at UMass Lowell, I studied Nursing at Yonsei University, South 
 I got interested in AI and Data Science, so I studied Biomedical Systems Informatics at Yonsei University.
 My overall goal is bridging the gaps between technology and healthcare.
 
+## Some of my posts
+[I will start writing..](./what_is_love.html)
 
-<img src="./pictures/i_dont_know_when.jpg">
+
+
+<!-- <img src="/assets/i_dont_know_when.jpg"> -->
  <!-- style="left;width:300px;height:310px"> -->

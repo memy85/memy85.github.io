@@ -1,12 +1,12 @@
 ---
-layout: post
-title: About Me
-date: 2024-10-26
+layout: page
+title: About me
+# date: 2024-10-26
 # permalink: /posts
 ---
 
 
-<img src="../pictures/new.jpeg"
+<img src="/assets/new.jpeg"
  style="left;width:500px;">
 
 ## What interests me
