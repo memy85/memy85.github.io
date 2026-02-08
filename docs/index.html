@@ -1,60 +1,320 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Won's Webpage</title>
-    <style>
-        body {
-            text-align: left;
-	    margin-left: 20%;
-	    margin-right: 30%;
-	    font-family: 'Times New Roman', Times, serif;
-	    background-color: #f0f0f0 !important; /* Shallow grey background */
-	    font-size: 18px;
-        }
-	h1 {
-	    font-size: 24px; /* Set the font size for h1 */
-	    }
-	h2 {
-	    font-size: 20px; /* Set the font size for h2 */
-	    }
-        .image {
-            margin: 20px auto;
-	    text-align: center;
-        }
-	li {
-		margin: 10px 0; /* Adds spacing between list items */
-		margin-left: 20px; /* Adds spacing between list items */
-	}
-	@media (max-width: 600px) {
-	    body {
-		padding-left: 2%; /* Less padding for mobile */
-		padding-right: 2%; /* Less padding for mobile */
-	    }
-	}
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Won Seok Jang · memy85</title>
+  <style>
+    :root {
+      --bg: #f7f4ef;
+      --bg-accent: #f1e9de;
+      --ink: #1f1a16;
+      --muted: #5b514a;
+      --line: #e5dbd0;
+      --accent: #1f6f6d;
+      --accent-warm: #d98c5f;
+      --card: #ffffff;
+      --shadow: 0 16px 40px rgba(32, 24, 18, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: radial-gradient(1200px 600px at 10% -10%, #ffffff 0%, transparent 60%),
+        radial-gradient(900px 500px at 90% 10%, #f7efe3 0%, transparent 55%),
+        linear-gradient(180deg, var(--bg) 0%, #f9f6f2 100%);
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      line-height: 1.6;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    .page {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      font-size: 14px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .nav a {
+      color: var(--muted);
+      text-decoration: none;
+      margin-left: 16px;
+    }
+
+    .nav a:hover {
+      color: var(--ink);
+    }
+
+    .hero {
+      margin-top: 56px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+      gap: 48px;
+      align-items: center;
+    }
+
+    .hero h1 {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: clamp(2.6rem, 3vw + 1.6rem, 4rem);
+      margin: 0 0 12px;
+    }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: var(--muted);
+      margin: 0 0 20px;
+    }
+
+    .hero .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 8px 0 24px;
+    }
+
+    .chip {
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: var(--bg-accent);
+      border: 1px solid var(--line);
+      font-size: 0.85rem;
+    }
+
+    .cta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 600;
+      border: 1px solid transparent;
+    }
+
+    .btn.primary,
+    .btn.ghost {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .btn.ghost {
+      border-color: transparent;
+    }
+
+    .portrait {
+      background: var(--card);
+      padding: 14px;
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      position: relative;
+    }
+
+    .portrait img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 18px;
+      object-fit: cover;
+    }
+
+    .section {
+      margin-top: 72px;
+    }
+
+    .section h2 {
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 20px;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      padding: 18px;
+      box-shadow: 0 8px 24px rgba(31, 26, 22, 0.08);
+    }
+
+    .card h3 {
+      margin: 0 0 8px;
+      font-size: 1.05rem;
+    }
+
+    .list {
+      margin: 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .list li {
+      margin-bottom: 8px;
+    }
+
+    .footer {
+      margin-top: 80px;
+      font-size: 0.9rem;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .fade {
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s ease forwards;
+    }
+
+    .delay-1 { animation-delay: 0.1s; }
+    .delay-2 { animation-delay: 0.25s; }
+    .delay-3 { animation-delay: 0.4s; }
+
+    @keyframes fadeUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        padding: 32px 18px 64px;
+      }
+
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .hero h1 {
+        font-size: clamp(2.1rem, 7vw, 2.8rem);
+      }
+
+      .hero p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .fade {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
 </head>
 <body>
-    <h1>Won's Page</h1>
-    <div class="image">
-        <img src="pictures/new.jpeg" alt="Won's Picture" width="300" />
-    </div>
-    <ul>
-	<h2 style="text-align: left;">Hello there</h2>
-	<div style="text-align: left;">
-		<p>
-		I enjoy doing research and often find myself thinking through new questions and ideas. With a background in nursing and some clinical experience, I have a strong interest in contributing to healthcare. That said, my curiosity isn’t limited to just one field. Right now, my work focuses on connecting the advances in computer science—particularly in natural language processing and large language models—with real-world healthcare needs. I’m especially interested in building tools that can support both clinicians and patients. If any of this resonates with you and you’re interested in collaborating, feel free to reach out by <a href="mailto:WonSeok_Jang@uml.edu">email</a>. I’m always open to new ideas and conversations.</p>
-	</div>
+  <div class="page">
+    <nav class="nav fade">
+      <div>
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </nav>
 
-	<div style="text-align: left;">
-		<h2 style="text-align: left;">Research Interests</h2>
-		I am generally interested in the following areas: 
-		<li>Agents for healthcare : Developing more robust and "smart" agents. </li>
-		<li>Reliability and Robustness : I believe this is the main issue that we should work on to be able to trust AI agents.</li>
-		To further read my publication records, please refer to my <a href="https://scholar.google.com/citations?user=GbWIz8MAAAAJ&hl=en">Google Scholar</a> page. My CV is also <a href="https://drive.google.com/file/d/1DjfrxEA898HBOVk7mx3zs1uhZjfn9qgu/view?usp=drive_link">here</a>.
-	</div>
-    </ul>
+    <section class="hero">
+      <div class="fade delay-1">
+        <h1>Won Seok Jang</h1>
+        <p>
+        </p>
+        <div class="chips">
+          <span class="chip">NLP</span>
+          <span class="chip">LLMs</span>
+          <span class="chip">Healthcare AI</span>
+          <span class="chip">Agent Reliability</span>
+        </div>
+        <div class="cta">
+          <a class="btn primary" href="mailto:WonSeok_Jang@student.uml.edu">Email</a>
+          <a class="btn ghost" href="https://scholar.google.com/citations?user=GbWIz8MAAAAJ&hl=en">Google Scholar</a>
+          <a class="btn ghost" href="https://github.com/memy85">GitHub</a>
+        </div>
+      </div>
+      <div class="portrait fade delay-2">
+        <img src="assets/new.jpeg" alt="Portrait of Won Seok Jang" />
+      </div>
+    </section>
+
+    <section id="about" class="section fade delay-1">
+      <h2>About</h2>
+      <div class="card">
+        <p>
+          PhD student at UMass Lowell exploring how language technologies and LLMs
+          can support clinicians and patients with trustworthy, human-centered tools.
+          I’m interested in building AI systems that clinicians can actually trust.
+          My background in nursing and biomedical informatics keeps me grounded in
+          real-world clinical workflows.I’m currently at the Miner School of Computer & Information Sciences at
+          UMass Lowell, focusing on LLM-based tools and medical NLP for safer,
+          more reliable care.
+        </p>
+      </div>
+    </section>
+
+    <section id="research" class="section fade delay-2">
+      <h2>Research Focus</h2>
+      <div class="grid">
+        <div class="card">
+          <h3>Agent Reliability</h3>
+          <p>Making AI agents robust, explainable, and safe for healthcare settings.</p>
+        </div>
+        <div class="card">
+          <h3>LLM Applications</h3>
+          <p>Designing tools that support clinical decisions and patient understanding.</p>
+        </div>
+        <div class="card">
+          <h3>Medical NLP</h3>
+          <p>From information extraction to summarization and clinical QA.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section fade delay-3">
+      <h2>Contact</h2>
+      <ul class="list">
+        <li>Email: <a href="mailto:WonSeok_Jang@student.uml.edu">WonSeok_Jang@student.uml.edu</a></li>
+        <li>Google Scholar: <a href="https://scholar.google.com/citations?user=GbWIz8MAAAAJ&hl=en">Profile</a></li>
+        <li>GitHub: <a href="https://github.com/memy85">memy85</a></li>
+      </ul>
+    </section>
+
+    <footer class="footer">
+      <span>Built with Jekyll · Minimal by design</span>
+    </footer>
+  </div>
 </body>
 </html>
