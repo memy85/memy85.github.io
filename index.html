@@ -1,29 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Won's Webpage</title>
-    <style>
-        body {
-            text-align: center;
-        }
-        .image {
-            margin: 20px auto;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Won Seok Jang</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Won's Webpage</h1>
-    <div class="image">
-        <img src="new.jpeg" alt="Won's Picture" />
+<main>
+  <header>
+    <img class="avatar" src="new.jpeg" alt="Won Seok Jang">
+    <div class="intro">
+      <h1>Won Seok Jang</h1>
+      <p class="role">PhD student, Computer Science<br>University of Massachusetts Lowell</p>
     </div>
+  </header>
+
+  <!-- BEGIN ABOUT -->
+  <section id="about">
+    <p>I'm a Computer Science PhD student at the University of Massachusetts Lowell, working on natural language processing for medicine. My research centers on patient-education chatbots and reinforcement learning for post-training large language models.</p>
+    <p>Before this I trained as a nurse (BSN) and earned an MS in biomedical informatics &mdash; the clinical side of the stack still shapes how I think about what makes these systems trustworthy.</p>
+  </section>
+  <!-- END ABOUT -->
+
+  <section id="publications">
     <h2>Publications</h2>
-    <ul>
-        <li>Publication Title 1</li>
-        <li>Publication Title 2</li>
-        <li>Publication Title 3</li>
-        <!-- Add more publications as necessary -->
-    </ul>
+    <!-- BEGIN PUBLICATIONS -->
+    <ol class="pubs">
+      <li>
+        <div class="pub-title"><a href="https://www.sciencedirect.com/science/article/pii/S0165032725020853">Association between PTSD and health-related social needs in US Veterans: an NLP analysis using Veterans Health Administration Data</a></div>
+        <div class="pub-authors">Feiyun Ouyang, Wen Hu, Joel Reisman, Terri K. Pogoda, Kathleen F. Carlson, Weisong Liu, Yousef Moradi, Yifan Zhang, Shuo Han, Sharmin Sultana, <strong>Won Seok Jang</strong>, Zonghai Yao, Avijit Mitra, Hong Yu</div>
+        <div class="pub-venue">Journal of Affective Disorders, 2026</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://arxiv.org/abs/2509.05818">Chatbot To Help Patients Understand Their Health</a></div>
+        <div class="pub-authors"><strong>Won Seok Jang</strong>, Hieu Tran, Manav Mistry, SaiKiran Gandluri, Yifan Zhang, Sharmin Sultana, Sunjae Kwon, Yuan Zhang, Zonghai Yao, Hong Yu</div>
+        <div class="pub-venue">arXiv preprint, 2025</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://arxiv.org/abs/2509.07188">DischargeSim: A Simulation Benchmark for Educational Doctor-Patient Communication at Discharge</a></div>
+        <div class="pub-authors">Zonghai Yao, Michael Sun, <strong>Won Seok Jang</strong>, Sunjae Kwon, Soie Kwon, Hong Yu</div>
+        <div class="pub-venue">arXiv preprint, 2025</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://arxiv.org/abs/2507.07419">MedReadCtrl: Personalizing medical text generation with readability-controlled instruction learning</a></div>
+        <div class="pub-authors">Hieu Tran, Zonghai Yao, <strong>Won Seok Jang</strong>, Sharmin Sultana, Allen Chang, Yuan Zhang, Hong Yu</div>
+        <div class="pub-venue">arXiv preprint, 2025</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://aclanthology.org/2025.naacl-long.538/">MCQG-SRefine: Multiple Choice Question Generation and Evaluation with Iterative Self-Critique, Correction, and Comparison Feedback</a></div>
+        <div class="pub-authors">Zonghai Yao, Aditya Parashar, Huixue Zhou, <strong>Won Seok Jang</strong>, Feiyun Ouyang, Zhichao Yang, Hong Yu, Luis Chiruzzo, Alan Ritter, Lu Wang</div>
+        <div class="pub-venue">NAACL 2025</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://arxiv.org/abs/2502.16022">Enhancing LLMs for Identifying and Prioritizing Important Medical Jargons from Electronic Health Record Notes Utilizing Data Augmentation</a></div>
+        <div class="pub-authors"><strong>Won Seok Jang</strong>, Sharmin Sultana, Zonghai Yao, Hieu Tran, Zhichao Yang, Sunjae Kwon, Hong Yu</div>
+        <div class="pub-venue">arXiv preprint, 2025</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://www.jmir.org/2025/1/e65146">Unveiling GPT-4V's hidden challenges behind high accuracy on USMLE questions: Observational Study</a></div>
+        <div class="pub-authors">Zhichao Yang, Zonghai Yao, Mahbuba Tasmin, Parth Vashisht, <strong>Won Seok Jang</strong>, Feiyun Ouyang, Beining Wang, David McManus, Dan Berlowitz, Hong Yu</div>
+        <div class="pub-venue">Journal of Medical Internet Research, 2025</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://www.cell.com/iscience/abstract/S2589-0042(24)02168-0">PPFL: A personalized progressive federated learning method for leveraging different healthcare institution-specific features</a></div>
+        <div class="pub-authors">Tae Hyun Kim, Jae Yong Yu, <strong>Won Seok Jang</strong>, Sun Cheol Heo, MinDong Sung, JaeSeong Hong, KyungSoo Chung, Yu Rang Park</div>
+        <div class="pub-venue">iScience, 2024</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://arxiv.org/abs/2410.01553">MedQA-CS: Benchmarking large language models clinical skills using an AI-SCE framework</a></div>
+        <div class="pub-authors">Zonghai Yao, Zihao Zhang, Chaolong Tang, Xingyu Bian, Youxia Zhao, Zhichao Yang, Junda Wang, Huixue Zhou, <strong>Won Seok Jang</strong>, Feiyun Ouyang, et al.</div>
+        <div class="pub-venue">arXiv preprint, 2024</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://doi.org/10.1200/CCI.23.00201">Synthetic Data Improve Survival Status Prediction Models in Early-Onset Colorectal Cancer</a></div>
+        <div class="pub-authors">Hyunwook Kim, <strong>Won Seok Jang</strong>, Woo Seob Sim, Han Sang Kim, Jeong Eun Choi, Eun Sil Baek, Yu Rang Park, Sang Joon Shin</div>
+        <div class="pub-venue">JCO Clinical Cancer Informatics, 2024</div>
+      </li>
+      <li>
+        <div class="pub-title"><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10413036/">Prognostic value of baseline and early treatment response of neutrophil-lymphocyte ratio, C-reactive protein, and lactate dehydrogenase in non-small cell lung cancer patients undergoing immunotherapy</a></div>
+        <div class="pub-authors">MinDong Sung, <strong>Won Seok Jang</strong>, Hae Reong Kim, Ji Ae Park, Sun Min Lim, Hye Ryun Kim, Byoung Chul Cho, Yu Rang Park, Min Hee Hong</div>
+        <div class="pub-venue">Translational Lung Cancer Research, 2023</div>
+      </li>
+    </ol>
+    <!-- END PUBLICATIONS -->
+  </section>
+
+  <section id="contact">
+    <h2>Contact</h2>
+    <p><a href="mailto:WonSeok_Jang@student.uml.edu">WonSeok_Jang@student.uml.edu</a></p>
+  </section>
+</main>
 </body>
 </html>

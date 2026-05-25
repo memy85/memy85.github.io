@@ -1,0 +1,144 @@
+:root {
+  --fg: #1a1a1a;
+  --muted: #666;
+  --link: #0645ad;
+  --rule: #e5e5e5;
+  --bg: #ffffff;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 4rem 1.5rem 6rem;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.avatar {
+  width: 110px;
+  height: 110px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.intro h1 {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0 0 0.25rem;
+  letter-spacing: -0.01em;
+}
+
+.intro .role {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.45;
+}
+
+section {
+  margin: 2.5rem 0;
+}
+
+h2 {
+  font-size: 1.05rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  border-bottom: 1px solid var(--rule);
+  padding-bottom: 0.4rem;
+  margin: 0 0 1.25rem;
+}
+
+#about p {
+  margin: 0 0 1rem;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+ol.pubs {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  counter-reset: pub;
+}
+
+ol.pubs li {
+  counter-increment: pub;
+  margin: 0 0 1.5rem;
+  padding-left: 2.25rem;
+  position: relative;
+}
+
+ol.pubs li::before {
+  content: counter(pub);
+  position: absolute;
+  left: 0;
+  top: 0.15rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  font-size: 0.85rem;
+  width: 1.75rem;
+  text-align: right;
+}
+
+.pub-title {
+  font-weight: 500;
+  line-height: 1.4;
+  margin-bottom: 0.15rem;
+}
+
+.pub-authors {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.pub-authors strong {
+  color: var(--fg);
+  font-weight: 600;
+}
+
+.pub-venue {
+  font-size: 0.85rem;
+  color: var(--muted);
+  font-style: italic;
+  margin-top: 0.1rem;
+}
+
+#contact p {
+  margin: 0;
+}
+
+@media (max-width: 520px) {
+  main { padding: 2.5rem 1.25rem 4rem; }
+  header { flex-direction: column; text-align: center; gap: 1rem; }
+  .avatar { width: 96px; height: 96px; }
+  ol.pubs li { padding-left: 1.75rem; }
+}
