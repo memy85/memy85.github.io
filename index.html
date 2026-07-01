@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Won Seok Jang</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,19 +15,31 @@
     <img class="avatar" src="new.jpeg" alt="Won Seok Jang">
     <div class="intro">
       <h1>Won Seok Jang</h1>
-      <p class="role">PhD student, Computer Science<br>University of Massachusetts Lowell</p>
+      <p class="role" data-lang-content="en">PhD student, Computer Science<br>University of Massachusetts Lowell</p>
+      <p class="role" data-lang-content="ko" hidden>컴퓨터공학 박사과정<br>매사추세츠 로웰 대학교 (UMass Lowell)</p>
+    </div>
+    <div class="lang-toggle" role="group" aria-label="Language">
+      <button type="button" data-lang="en" class="active">EN</button>
+      <button type="button" data-lang="ko">한국어</button>
     </div>
   </header>
 
   <!-- BEGIN ABOUT -->
   <section id="about">
-    <p>I'm a Computer Science PhD student at the University of Massachusetts Lowell, working on natural language processing for medicine. My research centers on patient-education chatbots and reinforcement learning for post-training large language models.</p>
-    <p>Before this I trained as a nurse (BSN) and earned an MS in biomedical informatics &mdash; the clinical side of the stack still shapes how I think about what makes these systems trustworthy.</p>
+    <div data-lang-content="en">
+      <p>I'm a Computer Science PhD student at the University of Massachusetts Lowell, working on natural language processing for medicine. My research centers on patient-education chatbots and reinforcement learning for post-training large language models.</p>
+      <p>Before this I trained as a nurse (BSN) and earned an MS in biomedical informatics &mdash; the clinical side of the stack still shapes how I think about what makes these systems trustworthy.</p>
+    </div>
+    <div data-lang-content="ko" hidden>
+      <p>저는 매사추세츠 로웰 대학교(University of Massachusetts Lowell) 컴퓨터공학 박사과정 학생으로, 의료 분야를 위한 자연어처리(NLP)를 연구하고 있습니다. 주된 관심사는 환자 교육용 챗봇과 대형 언어모델의 사후 학습(post-training)을 위한 강화학습입니다.</p>
+      <p>박사과정 이전에는 간호학사(BSN)를 취득한 뒤 의료정보학 석사(MS) 과정을 마쳤으며, 임상 배경은 지금도 이 시스템들의 신뢰성을 어떻게 판단할지에 대한 관점에 영향을 주고 있습니다.</p>
+    </div>
   </section>
   <!-- END ABOUT -->
 
   <section id="publications">
-    <h2>Publications</h2>
+    <h2 data-lang-content="en">Publications</h2>
+    <h2 data-lang-content="ko" hidden>논문</h2>
     <!-- BEGIN PUBLICATIONS -->
     <ol class="pubs">
       <li>
@@ -86,10 +101,53 @@
     <!-- END PUBLICATIONS -->
   </section>
 
+  <section id="service">
+    <h2 data-lang-content="en">Service</h2>
+    <h2 data-lang-content="ko" hidden>학술 활동</h2>
+    <ul class="service-list">
+      <li>
+        <span data-lang-content="en">Reviewer, ACL Rolling Review (ARR)</span>
+        <span data-lang-content="ko" hidden>ACL Rolling Review (ARR) 리뷰어</span>
+      </li>
+      <li>
+        <span data-lang-content="en">Research mentoring &amp; advice</span>
+        <span data-lang-content="ko" hidden>연구 멘토링 및 자문</span>
+      </li>
+      <li>
+        <span data-lang-content="en">Research collaboration</span>
+        <span data-lang-content="ko" hidden>연구 협업</span>
+      </li>
+    </ul>
+  </section>
+
   <section id="contact">
-    <h2>Contact</h2>
+    <h2 data-lang-content="en">Contact</h2>
+    <h2 data-lang-content="ko" hidden>연락처</h2>
     <p><a href="mailto:WonSeok_Jang@student.uml.edu">WonSeok_Jang@student.uml.edu</a></p>
   </section>
 </main>
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('.lang-toggle button');
+    var contents = document.querySelectorAll('[data-lang-content]');
+    function setLang(lang) {
+      buttons.forEach(function (b) {
+        b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+      });
+      contents.forEach(function (c) {
+        c.hidden = c.getAttribute('data-lang-content') !== lang;
+      });
+      try { localStorage.setItem('site-lang', lang); } catch (e) {}
+    }
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        setLang(btn.getAttribute('data-lang'));
+      });
+    });
+    var saved = null;
+    try { saved = localStorage.getItem('site-lang'); } catch (e) {}
+    if (saved === 'ko' || saved === 'en') setLang(saved);
+  })();
+</script>
 </body>
 </html>
