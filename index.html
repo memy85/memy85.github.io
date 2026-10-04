@@ -4,24 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Won Seok Jang</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <main>
   <header>
-    <img class="avatar" src="new.jpeg" alt="Won Seok Jang">
-    <div class="intro">
-      <h1>Won Seok Jang</h1>
-      <p class="role" data-lang-content="en">PhD student, Computer Science<br>University of Massachusetts Lowell</p>
-      <p class="role" data-lang-content="ko" hidden>컴퓨터공학 박사과정<br>UMass Lowell</p>
-    </div>
-    <div class="lang-toggle" role="group" aria-label="Language">
-      <button type="button" data-lang="en" class="active">EN</button>
-      <button type="button" data-lang="ko">한국어</button>
-    </div>
+    <img class="photo" src="new.jpeg" alt="Won Seok Jang">
+    <h1 class="name">Won Seok Jang</h1>
+    <p class="role" data-lang-content="en">PhD student, Computer Science, University of Massachusetts Lowell</p>
+    <p class="role" data-lang-content="ko" hidden>UMass Lowell 컴퓨터공학 박사과정</p>
   </header>
 
   <!-- BEGIN ABOUT -->
@@ -36,6 +27,13 @@
     </div>
   </section>
   <!-- END ABOUT -->
+  <p class="links">
+    <a href="mailto:WonSeok_Jang@student.uml.edu">WonSeok_Jang@student.uml.edu</a>
+    <span class="lang-toggle" role="group" aria-label="Language">
+      / <button type="button" data-lang="en" class="active">English</button>
+      / <button type="button" data-lang="ko">한국어</button>
+    </span>
+  </p>
 
   <section id="publications">
     <h2>Publications</h2>
@@ -118,10 +116,6 @@
     </ul>
   </section>
 
-  <section id="contact">
-    <h2>Contact</h2>
-    <p><a href="mailto:WonSeok_Jang@student.uml.edu">WonSeok_Jang@student.uml.edu</a></p>
-  </section>
 </main>
 <script>
   (function () {
