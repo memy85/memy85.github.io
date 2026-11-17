@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Teaching a Chatbot to Teach Patients</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<main>
+  <p class="links"><a href="../noteaid-r1.html">&larr; NoteAid-r1</a></p>
+
+  <article>
+    <h1>Teaching a chatbot to teach patients</h1>
+    <p class="pub-venue">Draft &middot; November 17, 2026</p>
+
+    <section>
+      <h2>The problem</h2>
+      <p>Patients can now read their own clinical notes, but most notes are written for other clinicians. They are full of abbreviations, medical terms and shorthand, and a patient who misreads a medication change or a follow-up instruction can be harmed by it. Explaining the note well takes time that clinicians rarely have.</p>
+    </section>
+
+    <section>
+      <h2>What I am trying to solve</h2>
+      <p>I want a chatbot that acts as a patient educator: it walks a patient through their own note, explains what each part means for them, and checks that they actually understood it, rather than only answering questions. The goal is better note understanding, and in the long run better health literacy and confidence in managing one's own care.</p>
+      <p>Two things make this hard. A good educator leads the conversation and adapts to the patient, which a plain question-answering model does not do. And the chatbot must stay faithful to the note and to medical guidelines, never adding facts that are not there.</p>
+    </section>
+
+    <section>
+      <h2>How</h2>
+      <ul>
+        <li><strong>A structured conversation.</strong> The note is split into topics. For each topic the model explains, reads how well the patient is following, and uses <em>teach-back</em> (asking the patient to explain it back in their own words) before moving on.</li>
+        <li><strong>Grounding.</strong> The model retrieves trusted drug and health information so it can answer questions about medications in the note without guessing.</li>
+        <li><strong>Training in two stages.</strong> Supervised fine-tuning first teaches the conversation format. Reinforcement learning (GRPO) then trains it against simulated patients, with rewards for flow, accuracy and teach-back. A final preference-training stage (DPO) fixes errors that the automatic reward does not catch.</li>
+        <li><strong>Evaluation.</strong> Each version is checked case by case and in simulation before any study with real people.</li>
+      </ul>
+    </section>
+  </article>
+</main>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Patient World Model</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<main>
+  <p class="links"><a href="../patient-world-model.html">&larr; Patient World Model</a></p>
+
+  <article>
+    <h1>Patient World Model: project overview</h1>
+    <p class="pub-venue">Draft &middot; November 17, 2026</p>
+
+    <section>
+      <h2>The problem</h2>
+      <p>Medical chatbots, including my own patient-education chatbot, are trained and tested by talking with simulated patients. Whatever the simulator gets wrong, the chatbot learns. Today's simulated patients are a language model following a written profile: they tend to be more cooperative and quicker to understand than real people, they lose track in long conversations, and they do not keep any record of the thing that matters most in patient education, which is what the patient actually understands.</p>
+    </section>
+
+    <section>
+      <h2>What I am trying to solve</h2>
+      <p>I want a virtual patient that behaves like a <em>world model</em> of a patient: a simulator with an explicit inner state (what the patient has heard, understood or misunderstood, and how much they trust the conversation) that changes in response to what the educator says. If it works, chatbots trained against it should behave better with real people, and testing chatbots against it should rank them the same way real people would.</p>
+    </section>
+
+    <section>
+      <h2>How</h2>
+      <ul>
+        <li><strong>Explicit patient state.</strong> The simulator tracks understanding of each key fact in the note, along with feelings such as trust and anxiety. A language model turns that state into what the patient says each turn.</li>
+        <li><strong>Many kinds of patients.</strong> Traits such as health literacy, memory and distrust vary widely, so the chatbot cannot overfit to one easy patient. The patient speaks rather than types, as in a real visit.</li>
+        <li><strong>Checking that it is realistic.</strong> Does understanding stay consistent, grow only when something is taught, and respond to known effects such as teach-back and plain language? And does it rank chatbot versions the same way real participants do?</li>
+        <li><strong>Later.</strong> Learn the patient's state changes directly, with a latent world model in the style of JEPA, and compare it with the language-model patient.</li>
+      </ul>
+    </section>
+  </article>
+</main>
+</body>
+</html>

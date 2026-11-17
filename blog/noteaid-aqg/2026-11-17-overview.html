@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>NoteAid-AQG</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<main>
+  <p class="links"><a href="../noteaid-aqg.html">&larr; NoteAid-AQG</a></p>
+
+  <article>
+    <h1>NoteAid-AQG: project overview</h1>
+    <p class="pub-venue">Draft &middot; November 17, 2026</p>
+
+    <section>
+      <h2>The problem</h2>
+      <p>If a chatbot or a clinician explains a clinical note to a patient, how do we know the patient understood it? Generic health-literacy tests measure general reading skill, not whether this patient knows what their own note says about their medications, their self-care, or the warning signs to watch for. Writing a personal quiz for every patient by hand is not realistic.</p>
+    </section>
+
+    <section>
+      <h2>What I am trying to solve</h2>
+      <p>I want to generate, automatically, a short multiple-choice quiz from each patient's own note that checks two things: whether the patient can find and state the facts the note gives (for example, the dose of a new medication), and whether they can put the note's medical language into plain words. The questions must be correct, fair, and safe for patients to answer.</p>
+    </section>
+
+    <section>
+      <h2>How</h2>
+      <ul>
+        <li><strong>What to ask about.</strong> Questions cover the topics a patient needs most: medications, self-care to do, things to avoid, and warning signs, plus surgery and follow-up when the note has them.</li>
+        <li><strong>Note-grounded questions.</strong> A language-model pipeline first selects the relevant parts of the note, then writes each question from them. The patient answers with the note in front of them.</li>
+        <li><strong>Wrong answers you can check.</strong> Every wrong option is built from the same note, so the note itself proves it wrong. A common type is the incomplete answer, which mirrors the real mistake of following only part of the instructions.</li>
+        <li><strong>Feedback and review.</strong> Patients see the correct answer right away, so a quiz never leaves them with a wrong idea. Question quality is checked by an automatic judge, then by physicians, then with patients.</li>
+      </ul>
+    </section>
+  </article>
+</main>
+</body>
+</html>
