@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Formalizing NoteAid-R1</title>
+  <link rel="stylesheet" href="../../style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+  <script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.querySelectorAll("span.math").forEach(function (el) {
+        katex.render(el.textContent, el, {displayMode: el.classList.contains("display"), throwOnError: false});
+      });
+    });
+  </script>
+</head>
+<body>
+<main>
+  <p class="links"><a href="../noteaid-r1.html">&larr; NoteAid-r1</a></p>
+
+  <article>
+    <h1>Formalizing NoteAid-R1</h1>
+    <p class="pub-venue">Draft &middot; November 23, 2026</p>
+
+<h2 id="what-i-am-trying-to-solve">What I am trying to solve</h2>
+<blockquote>
+<p>How can we train our model on simulated cases?</p>
+</blockquote>
+<ul>
+<li>We want to optimize at the scenario level, per session.</li>
+<li>We do not optimize per turn, although this could improve the model
+turn by turn as well.</li>
+</ul>
+<h2 id="the-problem">The problem</h2>
+<h3 id="setting">Setting</h3>
+<ul>
+<li>Cases <span class="math inline">c \in C</span>: a note, a patient
+profile and a persona. For each case, <span class="math inline">N =
+8</span> trajectories <span class="math inline">\tau_{i,c}</span>, <span
+class="math inline">i = 1..N</span>, sampled from <span
+class="math inline">\pi_\theta</span>.</li>
+<li><span class="math inline">\sigma_t</span>: the harness's memory
+(stage, topic, topic slots, resume point, counters, plus private
+memory). <span class="math inline">L(\sigma_t)</span>: legal moves.
+<span class="math inline">h_t</span>: the dialogue so far. <span
+class="math inline">r_t</span>: retrieval results.</li>
+</ul>
+<h3 id="one-turn--two-actions-of-one-policy">One turn = two actions of
+one policy</h3>
+<p>An action <span class="math inline">a</span> is one call's whole
+output; <span class="math inline">\log \pi_\theta(a \mid s) = \sum_k
+\log \pi_\theta(a_k \mid s, a_{&lt;k})</span>.</p>
+<ul>
+<li><strong>Update:</strong> <span class="math inline">s^u_t = \phi_u(c,
+h_t, \sigma_t, r_t)</span>, <span class="math inline">a^u_t \sim
+\pi_\theta(\cdot \mid s^u_t)</span> with its move in <span
+class="math inline">L(\sigma_t)</span>, then <span
+class="math inline">\sigma&#39;_t = f(\sigma_t, a^u_t)</span>.</li>
+<li><strong>Utterance:</strong> <span class="math inline">s^y_t =
+\phi_y(c, h_t, \sigma&#39;_t, r_t)</span>, <span
+class="math inline">a^y_t \sim \pi_\theta(\cdot \mid s^y_t)</span>.</li>
+<li><strong>Patient:</strong> <span class="math inline">p_{t+1} \sim
+P_{sim}(\cdot \mid c, h_t, a^y_t)</span>, <span
+class="math inline">h_{t+1} = h_t \cup \{a^y_t, p_{t+1}\}</span>.</li>
+</ul>
+<p><span class="math inline">\phi</span> rebuilds every prompt, so the
+states are observations, not one growing sequence. The update action
+both picks a move and writes part of <span
+class="math inline">\sigma</span>, so the model partly writes its own
+memory.</p>
+<p>Trajectory: <span class="math inline">\tau_{i,c} = (s^u_1, a^u_1,
+s^y_1, a^y_1, s^u_2, …, s^y_T, a^y_T)</span></p>
+<h3 id="what-we-score">What we score</h3>
+<ul>
+<li><span class="math inline">V(\tau)</span>: session score = coverage
+(DischargeBench's topic checklist score) combined with strategy (the six
+functions of medical communication; King &amp; Hoppe, 2013). How the two
+combine is still open.</li>
+<li><span class="math inline">\ell(s,a) \ge 0</span>: the action's own
+fault. Update: skipped the patient's request, set up a repeat, reopened
+a covered point. Utterance: ignored the request, repeated itself,
+re-taught a covered point.</li>
+</ul>
+<h3 id="coverage-under-a-responsiveness-budget">Coverage under a
+responsiveness budget</h3>
+<p><span class="math display">\max_\theta \; \mathbb{E}_{c \sim C}\,
+\mathbb{E}_{\tau \sim \pi_\theta(\cdot \mid c)} [V(\tau)] \quad
+\text{s.t.} \quad \mathbb{E}\Big[\sum_{(s,a) \in \tau} \ell(s,a)\Big]
+\le \delta</span> <span class="math display">\mathcal{L}(\theta,
+\lambda) = \mathbb{E}\Big[V(\tau) - \lambda \sum_{(s,a) \in \tau}
+\ell(s,a)\Big] + \lambda\delta, \qquad \lambda \ge 0 \text{ = the price
+of one fault in units of } V</span></p>
+<h2 id="how">How</h2>
+<h3
+id="from-the-lagrangian-to-the-loss-lambda-fixed-within-a-round">From
+the Lagrangian to the loss (<span class="math inline">\lambda</span>
+fixed within a round)</h3>
+<ol type="1">
+<li>Policy gradient: <span class="math inline">\nabla\mathcal{L} =
+\mathbb{E}\big[\sum_{(s,a) \in \tau} \nabla \log \pi_\theta(a \mid
+s)\,(V(\tau) - \lambda \sum_\tau \ell)\big]</span>.</li>
+<li>Baseline: subtract <span class="math inline">b_c = \frac{1}{N}\sum_i
+V(\tau_{i,c})</span>.</li>
+<li>Each call answers for its own fault only (a choice, not exact
+reward-to-go): <span class="math display">A_{i,c}(s,a) = [V(\tau_{i,c})
+- b_c] - \lambda\,\ell(s,a)</span> The session's credit is shared by
+every action; a fault is charged to the action the judge names.</li>
+<li>Loss (Dr. GRPO: no std scaling, a constant <span
+class="math inline">Z</span> instead of <span
+class="math inline">1/|a|</span>), maximized: <span
+class="math display">J(\theta) = \frac{1}{|C|}\sum_c \frac{1}{N}\sum_i
+\frac{1}{Z}\sum_{(s,a) \in \tau_{i,c}} \sum_k \min\big(\rho_k A,\
+\mathrm{clip}(\rho_k, 1-\epsilon, 1+\epsilon) A\big) -
+\beta\,\mathrm{KL}(\pi_\theta \,\|\, \pi_{ref})</span> with <span
+class="math inline">\rho_k = \pi_\theta(a_k \mid s, a_{&lt;k}) /
+\pi_{old}(a_k \mid s, a_{&lt;k})</span>. On the first pass over fresh
+rollouts <span class="math inline">\rho = 1</span>, so <span
+class="math inline">J</span> reduces to REINFORCE with a case baseline
+plus KL.
+<ul>
+<li>Why no std scaling: it up-weights cases whose 8 sessions score
+alike, which is mostly judge noise.</li>
+<li>Why no <span class="math inline">1/|a|</span>: it favors short good
+outputs and lets long bad ones off lightly (Liu et al. 2025, Dr. GRPO,
+arXiv 2503.20783).</li>
+</ul></li>
+</ol>
+<h3 id="design-choices">Design choices</h3>
+<ul>
+<li><strong>KL reference:</strong> the round's starting model (<span
+class="math inline">\pi_{ref} = \pi_{old}</span>), GRPO's per-token
+estimator; <span class="math inline">\beta</span> small, possibly 0,
+decided from the per-round checks.</li>
+<li><strong><span class="math inline">\lambda</span> fixed:</strong> one
+fault costs about the typical spread of <span
+class="math inline">V</span> among a case's 8 sessions; the fault rate
+is reported every round and <span class="math inline">\lambda</span> is
+raised by hand if it stays over <span class="math inline">\delta</span>.
+Not learned, because 3–6 expensive rounds are too few for it to settle,
+and a moving <span class="math inline">\lambda</span> would blur whether
+a change came from the model or the price. Learned form for later: <span
+class="math inline">\lambda \leftarrow \max(0, \lambda +
+\eta(\text{fault rate} - \delta))</span>.</li>
+<li>SFT on the best sessions is the special case <span
+class="math inline">A = 1</span> for kept trajectories, 0
+otherwise.</li>
+<li><strong>Combined moves:</strong> a patient who is worried but ready
+gets comfort and progress in one turn
+(<code>support_and_continue</code>, alongside
+<code>answer_and_continue</code>), so coverage and responsiveness need
+not trade off within a turn.</li>
+</ul>
+<h2 id="open-questions">Open questions</h2>
+<ul>
+<li>How coverage and strategy combine into <span
+class="math inline">V</span>.</li>
+<li><span class="math inline">\delta</span> per fault kind, and <span
+class="math inline">\lambda</span>'s value.</li>
+<li><span class="math inline">\beta</span>, <span
+class="math inline">\epsilon</span>, <span class="math inline">Z</span>,
+passes per round.</li>
+</ul>
+  </article>
+</main>
+</body>
+</html>
