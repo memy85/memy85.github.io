@@ -75,9 +75,9 @@ s^y_1, a^y_1, s^u_2, …, s^y_T, a^y_T)</span></p>
 <h3 id="what-we-score">What we score</h3>
 <ul>
 <li><span class="math inline">V(\tau)</span>: session score = coverage
-(DischargeBench's topic checklist score) combined with strategy (the six
-functions of medical communication; King &amp; Hoppe, 2013). How the two
-combine is still open.</li>
+(DischargeBench's topic checklist score; Jang et al., 2026) combined
+with strategy (the six functions of medical communication; King &amp;
+Hoppe, 2013). How the two combine is still open.</li>
 <li><span class="math inline">\ell(s,a) \ge 0</span>: the action's own
 fault. Update: skipped the patient's request, set up a repeat, reopened
 a covered point. Utterance: ignored the request, repeated itself,
@@ -107,32 +107,31 @@ V(\tau_{i,c})</span>.</li>
 reward-to-go): <span class="math display">A_{i,c}(s,a) = [V(\tau_{i,c})
 - b_c] - \lambda\,\ell(s,a)</span> The session's credit is shared by
 every action; a fault is charged to the action the judge names.</li>
-<li>Loss (Dr. GRPO: no std scaling, a constant <span
+<li>Loss (Dr. GRPO (Liu et al., 2025): no std scaling, a constant <span
 class="math inline">Z</span> instead of <span
-class="math inline">1/|a|</span>), maximized: <span
-class="math display">J(\theta) = \frac{1}{|C|}\sum_c \frac{1}{N}\sum_i
-\frac{1}{Z}\sum_{(s,a) \in \tau_{i,c}} \sum_k \min\big(\rho_k A,\
-\mathrm{clip}(\rho_k, 1-\epsilon, 1+\epsilon) A\big) -
-\beta\,\mathrm{KL}(\pi_\theta \,\|\, \pi_{ref})</span> with <span
-class="math inline">\rho_k = \pi_\theta(a_k \mid s, a_{&lt;k}) /
-\pi_{old}(a_k \mid s, a_{&lt;k})</span>. On the first pass over fresh
-rollouts <span class="math inline">\rho = 1</span>, so <span
-class="math inline">J</span> reduces to REINFORCE with a case baseline
-plus KL.
+class="math inline">1/|a|</span>; PPO-style clipping (Schulman et al.,
+2017)), maximized: <span class="math display">J(\theta) =
+\frac{1}{|C|}\sum_c \frac{1}{N}\sum_i \frac{1}{Z}\sum_{(s,a) \in
+\tau_{i,c}} \sum_k \min\big(\rho_k A,\ \mathrm{clip}(\rho_k, 1-\epsilon,
+1+\epsilon) A\big) - \beta\,\mathrm{KL}(\pi_\theta \,\|\,
+\pi_{ref})</span> with <span class="math inline">\rho_k = \pi_\theta(a_k
+\mid s, a_{&lt;k}) / \pi_{old}(a_k \mid s, a_{&lt;k})</span>. On the
+first pass over fresh rollouts <span class="math inline">\rho =
+1</span>, so <span class="math inline">J</span> reduces to REINFORCE
+(Williams, 1992) with a case baseline plus KL.
 <ul>
 <li>Why no std scaling: it up-weights cases whose 8 sessions score
 alike, which is mostly judge noise.</li>
 <li>Why no <span class="math inline">1/|a|</span>: it favors short good
-outputs and lets long bad ones off lightly (Liu et al. 2025, Dr. GRPO,
-arXiv 2503.20783).</li>
+outputs and lets long bad ones off lightly (Liu et al., 2025).</li>
 </ul></li>
 </ol>
 <h3 id="design-choices">Design choices</h3>
 <ul>
 <li><strong>KL reference:</strong> the round's starting model (<span
 class="math inline">\pi_{ref} = \pi_{old}</span>), GRPO's per-token
-estimator; <span class="math inline">\beta</span> small, possibly 0,
-decided from the per-round checks.</li>
+estimator (Shao et al., 2024); <span class="math inline">\beta</span>
+small, possibly 0, decided from the per-round checks.</li>
 <li><strong><span class="math inline">\lambda</span> fixed:</strong> one
 fault costs about the typical spread of <span
 class="math inline">V</span> among a case's 8 sessions; the fault rate
@@ -161,6 +160,35 @@ class="math inline">\lambda</span>'s value.</li>
 <li><span class="math inline">\beta</span>, <span
 class="math inline">\epsilon</span>, <span class="math inline">Z</span>,
 passes per round.</li>
+</ul>
+<h2 id="references">References</h2>
+<ul>
+<li>Jang, W. S., Jang, Y., Ko, C., Kim, H., Yao, Z., &amp; Yu, H.
+(2026). DischargeBench: Pre-deployment evaluation of LLM discharge
+educators through persona-grounded patient simulation. <em>arXiv
+preprint</em> <a
+href="https://arxiv.org/abs/2609.20827">arXiv:2609.20827</a></li>
+<li>King, A., &amp; Hoppe, R. B. (2013). "Best practice" for
+patient-centered communication: A narrative review. <em>Journal of
+Graduate Medical Education</em>, 5(3), 385–393. <a
+href="https://doi.org/10.4300/JGME-D-13-00072.1">doi:10.4300/JGME-D-13-00072.1</a></li>
+<li>Liu, Z., Chen, C., Li, W., Qi, P., Pang, T., Du, C., Lee, W. S.,
+&amp; Lin, M. (2025). Understanding R1-Zero-like training: A critical
+perspective. <em>arXiv preprint</em> <a
+href="https://arxiv.org/abs/2503.20783">arXiv:2503.20783</a></li>
+<li>Schulman, J., Wolski, F., Dhariwal, P., Radford, A., &amp; Klimov,
+O. (2017). Proximal policy optimization algorithms. <em>arXiv
+preprint</em> <a
+href="https://arxiv.org/abs/1707.06347">arXiv:1707.06347</a></li>
+<li>Shao, Z., Wang, P., Zhu, Q., Xu, R., Song, J., Bi, X., Zhang, H.,
+Zhang, M., Li, Y. K., Wu, Y., &amp; Guo, D. (2024). DeepSeekMath:
+Pushing the limits of mathematical reasoning in open language models.
+<em>arXiv preprint</em> <a
+href="https://arxiv.org/abs/2402.03300">arXiv:2402.03300</a></li>
+<li>Williams, R. J. (1992). Simple statistical gradient-following
+algorithms for connectionist reinforcement learning. <em>Machine
+Learning</em>, 8(3–4), 229–256. <a
+href="https://doi.org/10.1007/BF00992696">doi:10.1007/BF00992696</a></li>
 </ul>
   </article>
 </main>
