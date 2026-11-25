@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Voice for the virtual patient</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<main>
+  <p class="links"><a href="../patient-world-model.html">&larr; Patient World Model</a></p>
+
+  <article>
+    <h1>Voice for the virtual patient: a cascaded pipeline</h1>
+    <p class="pub-venue">Draft &middot; November 25, 2026</p>
+
+    <section>
+      <h2>How a spoken turn works</h2>
+      <p>The patient speaks. For now the voice is a cascade of separate parts around a text model (speech to text, the patient model, text to speech), all local open models so no audio leaves the lab. End-to-end speech models may replace it later, once research gives a good starting point.</p>
+<figure id="fig-voice" style="margin:1.5em 0">
+<svg viewBox="0 0 640 312" width="100%" role="img" aria-label="Cascaded voice pipeline: turn detection and speech to text while listening; the patient model replies; text to speech and playback while speaking; components colored by whether they use a large language model, a smaller neural network, or no model" font-size="13" style="color:var(--fg)">
+<style>
+#fig-voice{--llm:var(--link);--nn:#1b8f7c;--hum:#b8731a;--code:var(--muted)}
+@media (prefers-color-scheme: dark){#fig-voice{--nn:#4cc9b0;--hum:#e0a248}}
+#fig-voice text{fill:currentColor}
+#fig-voice .card{stroke-width:1.4}
+#fig-voice .llm{stroke:var(--llm);fill:var(--llm);fill-opacity:.2}
+#fig-voice .nn{stroke:var(--nn);fill:var(--nn);fill-opacity:.2}
+#fig-voice .hum{stroke:var(--hum);fill:var(--hum);fill-opacity:.2}
+#fig-voice .code{stroke:var(--code);fill:var(--code);fill-opacity:.15;stroke-dasharray:5 3}
+#fig-voice .t{font-weight:bold;font-size:14px}
+#fig-voice .s{font-size:11.5px;fill:var(--muted)}
+#fig-voice .h{font-size:10.5px;font-weight:bold;letter-spacing:.06em;fill:var(--muted)}
+#fig-voice .a{stroke:var(--muted);stroke-width:1.5;fill:none;marker-end:url(#ah5)}
+#fig-voice .k{stroke:var(--muted);stroke-width:1.3;fill:none;stroke-dasharray:3 3;marker-end:url(#ah5)}
+#fig-voice .div{stroke:var(--llm);stroke-opacity:.5}
+</style>
+<defs><marker id="ah5" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto"><path d="M0,1L9,5L0,9z" fill="var(--muted)"/></marker></defs>
+<text class="h" x="160" y="24">LISTENING  →</text>
+<text class="h" x="160" y="262">←  SPEAKING</text>
+<rect class="card hum" x="12" y="36" width="120" height="208" rx="12"/>
+<text class="t" x="26" y="62">Educator</text>
+<text class="s" x="26" y="82">a medical student,</text><text class="s" x="26" y="97">or a chatbot</text>
+<text class="s" x="26" y="128">speaks →</text><text class="s" x="26" y="211">← hears the</text><text class="s" x="26" y="226">patient</text>
+<rect class="card nn" x="162" y="36" width="134" height="80" rx="12"/>
+<text class="t" x="176" y="62">Turn detection</text>
+<text class="s" x="176" y="82">done speaking,</text><text class="s" x="176" y="97">or only a pause?</text>
+<rect class="card nn" x="318" y="36" width="128" height="80" rx="12"/>
+<text class="t" x="332" y="62">Speech to text</text>
+<text class="s" x="332" y="82">transcribed while</text><text class="s" x="332" y="97">they speak</text>
+<rect class="card llm" x="470" y="36" width="158" height="208" rx="12"/>
+<text class="t" x="484" y="62">Patient model</text>
+<text class="h" x="484" y="88">STATE</text>
+<text class="s" x="484" y="105">understanding,</text><text class="s" x="484" y="120">trust, anxiety</text>
+<line class="div" x1="484" y1="138" x2="614" y2="138"/>
+<text class="h" x="484" y="160">REPLY</text>
+<text class="s" x="484" y="177">written from the state;</text><text class="s" x="484" y="192">hesitates when</text><text class="s" x="484" y="207">understanding or</text><text class="s" x="484" y="222">trust is low</text>
+<rect class="card nn" x="318" y="164" width="128" height="80" rx="12"/>
+<text class="t" x="332" y="190">Text to speech</text>
+<text class="s" x="332" y="210">voice and emotion</text><text class="s" x="332" y="225">set by the state</text>
+<rect class="card code" x="162" y="164" width="134" height="80" rx="12"/>
+<text class="t" x="176" y="190">Playback</text>
+<text class="s" x="176" y="210">starts on the first</text><text class="s" x="176" y="225">sentence</text>
+<path class="a" d="M132,76H160"/><path class="a" d="M296,76H316"/><path class="a" d="M446,76H468"/>
+<path class="a" d="M470,204H448"/><path class="a" d="M318,204H298"/><path class="a" d="M162,204H134"/>
+<path class="k" d="M200,116V162"/><text class="s" x="208" y="144" font-style="italic">talked over → stop</text>
+<g transform="translate(12,292)">
+<circle cx="5" cy="-4" r="5" fill="var(--llm)"/><text class="s" x="15" y="0">large language model</text>
+<circle cx="160" cy="-4" r="5" fill="var(--nn)"/><text class="s" x="170" y="0">smaller neural network</text>
+<circle cx="325" cy="-4" r="5" fill="none" stroke="var(--code)" stroke-dasharray="2 2"/><text class="s" x="335" y="0">no model (code)</text>
+<circle cx="455" cy="-4" r="5" fill="var(--hum)"/><text class="s" x="465" y="0">human, or an LLM chatbot</text>
+</g>
+</svg>
+<figcaption style="color:var(--muted);font-size:0.9em">Figure 1. One spoken turn. Speech is turned into text, the patient model replies from its state, and the reply is spoken in a voice that matches that state. Colours show where a model is needed. Text mode is the same patient model without the speech parts.</figcaption>
+</figure>
+      <ul>
+        <li><strong>Turn detection.</strong> A voice-activity detector hears when speech starts and stops, and a small model decides whether a pause means "I'm done" or "I'm thinking".</li>
+        <li><strong>Speech to text.</strong> The educator's words are transcribed while they speak, with the medicine names from the case given as hints.</li>
+        <li><strong>Patient model.</strong> The patient's state drives what it says, including hesitation ("um…", "I guess…") when understanding or trust is low.</li>
+        <li><strong>Text to speech.</strong> Each persona has a fixed voice; the state sets the emotion and pace. Speaking starts on the first full sentence, to cut the delay.</li>
+        <li><strong>Interruptions.</strong> If the educator talks over the patient, playback stops and the rest of the reply is dropped. The patient can also cut in, according to its persona.</li>
+      </ul>
+      <h3>Where the models are</h3>
+      <ul>
+        <li><strong>Turn detection:</strong> two small neural networks. A voice-activity detector reads the audio, and a small language model reads the words so far to judge whether the turn is over. No large language model is needed.</li>
+        <li><strong>Speech to text:</strong> a neural speech-recognition model. It is a transformer, but not a large language model.</li>
+        <li><strong>Patient model:</strong> the only place a large language model is needed. It writes the patient's reply, and for now it also updates the patient's state. Later, a learned world model in the style of JEPA may update the state instead (see the <a href="2026-11-17-overview.html">project overview</a>).</li>
+        <li><strong>Text to speech:</strong> a neural speech-synthesis model, which takes the voice and emotion settings from the state.</li>
+        <li><strong>Playback and barge-in:</strong> no model, only ordinary code that stops the audio when the voice-activity detector hears the educator.</li>
+        <li><strong>Educator:</strong> a medical student, or a chatbot such as NoteAid-R1 (a large language model) when both sides are simulated.</li>
+      </ul>
+    </section>
+  </article>
+</main>
+</body>
+</html>

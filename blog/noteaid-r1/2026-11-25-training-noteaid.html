@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex">
+  <title>Training NoteAid (model + harness)</title>
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body>
+<main>
+  <p class="links"><a href="../noteaid-r1.html">&larr; NoteAid-r1</a></p>
+
+  <article>
+    <h1>Training NoteAid (model + harness)</h1>
+    <p class="pub-venue">Draft &middot; November 25, 2026</p>
+
+    <section>
+      <h2>One turn</h2>
+<figure id="fig-turn" style="margin:1.5em 0">
+<svg viewBox="0 0 565 352" width="100%" role="img" aria-label="One turn of the harness: update call, utterance call, simulated patient, dialogue, with the harness memory alongside" font-size="13" style="color:var(--fg)">
+<style>
+#fig-turn .b{fill:none;stroke:currentColor;stroke-width:1.2}
+#fig-turn .p{fill:none;stroke:var(--link);stroke-width:2}
+#fig-turn .a{stroke:currentColor;stroke-width:1.2;fill:none;marker-end:url(#ah)}
+#fig-turn text{fill:currentColor}
+#fig-turn .t{font-weight:bold}
+#fig-turn .s{font-size:11.5px;fill:var(--muted)}
+</style>
+<defs><marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" fill="currentColor"/></marker></defs>
+<rect class="p" x="40" y="10" width="290" height="58" rx="6"/>
+<text class="t" x="55" y="33">① Update call · π<tspan baseline-shift="sub" font-size="9">θ</tspan></text>
+<text class="s" x="55" y="54">sees c, hₜ, σₜ, rₜ; picks a move from L(σₜ)</text>
+<rect class="p" x="40" y="105" width="290" height="58" rx="6"/>
+<text class="t" x="55" y="128">② Utterance call · π<tspan baseline-shift="sub" font-size="9">θ</tspan></text>
+<text class="s" x="55" y="149">sees c, hₜ, σ′ₜ, rₜ; writes the reply</text>
+<rect class="b" x="40" y="200" width="290" height="58" rx="6"/>
+<text class="t" x="55" y="223">③ Simulated patient · P<tspan baseline-shift="sub" font-size="9">sim</tspan></text>
+<text class="s" x="55" y="244">answers from the case and the dialogue</text>
+<rect class="b" x="40" y="295" width="290" height="50" rx="6"/>
+<text class="t" x="55" y="325">Dialogue hₜ₊₁ = hₜ + reply + answer</text>
+<path class="a" d="M185,68V103"/><path class="a" d="M185,163V198"/><path class="a" d="M185,258V293"/>
+<path class="a" d="M40,320H18V39H38"/>
+<text class="s" x="10" y="190" transform="rotate(-90 10 190)" text-anchor="middle">next turn</text>
+<rect class="b" x="415" y="10" width="145" height="215" rx="6" stroke-dasharray="4 3"/>
+<text class="t" x="430" y="33">Harness memory σ</text>
+<text class="s" x="430" y="58">stage</text><text class="s" x="430" y="78">topic</text>
+<text class="s" x="430" y="98">topic slots</text><text class="s" x="430" y="118">resume point</text>
+<text class="s" x="430" y="138">counters</text><text class="s" x="430" y="158">private memory</text>
+<text class="s" x="430" y="190">legal moves L(σ)</text>
+<text class="s" x="430" y="206">come from here</text>
+<path class="a" d="M330,30H413"/><text class="s" x="340" y="48">writes</text><text class="s" x="340" y="63">f(σₜ, aᵘₜ)</text>
+<path class="a" d="M415,134H332"/><text class="s" x="350" y="128">reads σ′ₜ</text>
+</svg>
+<figcaption style="color:var(--muted);font-size:0.9em">Figure 1. One turn. The same model π<sub>θ</sub> makes two calls: the update call picks a move and writes part of the harness memory σ, and the utterance call writes the reply. Each prompt is rebuilt from the case c, the dialogue h, the memory σ and the retrieval results r.</figcaption>
+</figure>
+    </section>
+
+    <section>
+      <h2>How one round of training works</h2>
+      <p>After the first round, the model improves in rounds: it plays simulated sessions, a judge scores them, and one policy-gradient update follows. The numbers below are from the round-2 setup.</p>
+      <ul>
+        <li><strong>Cases per round.</strong> 20 training cases: 4 cases for each of 5 patient personas (anxious, distrustful, minimiser, highly conscientious, neutral). Each case is a note, a patient profile and a persona.</li>
+        <li><strong>Sessions per case.</strong> The current model plays 8 full sessions per case, so 160 sessions per round.</li>
+        <li><strong>Optimized per case.</strong> Each session gets one score, V (topic coverage, weighted by communication strategy). A session counts as good or bad only relative to its own case: the baseline is the average V of that case's 8 sessions, so an easy case does not look better than a hard one.</li>
+        <li><strong>Optimized per row.</strong> Each turn has two model calls: the update call, which picks the next move and writes the harness memory, and the utterance call, which writes the reply. Each call is one training row, the prompt and the model's whole output. A row's weight is the session's score minus the case baseline, minus a penalty if the judge faults that call (for example, ignoring the patient's request or repeating itself).</li>
+        <li><strong>Fixed size.</strong> 40 calls are sampled at random from each session, so every round trains on the same number of rows.</li>
+        <li><strong>Update.</strong> One pass over the rows at a small learning rate (2&times;10<sup>-6</sup>), kept close to the round's starting model. The tasks V does not score (writing the patient profile and the summary) are mixed back in as ordinary supervised rows, so they are not forgotten.</li>
+        <li><strong>When to stop.</strong> After each round the case evaluations are rerun; the rounds stop when they plateau.</li>
+      </ul>
+    </section>
+  </article>
+</main>
+</body>
+</html>
